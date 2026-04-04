@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-family: "Inter", sans-serif;
+  background-color: #f8fafc;
+  --color-primary: #1b3a6b;
+  --color-accent: #e8500a;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+  --color-background: #f8fafc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+  font-family: "Inter", sans-serif;
+  background-color: var(--color-background);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.sidebar {
+  transition: transform 0.25s ease-in-out;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.badge-healthy,
+.badge-completed,
+.badge-gold,
+.badge-low,
+.badge-pending,
+.badge-silver,
+.badge-critical,
+.badge-voided,
+.badge-damaged,
+.badge-in_transit,
+.badge-approved,
+.badge-bronze,
+.badge-platinum,
+.badge-cancelled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+}
+
+.badge-healthy,
+.badge-completed,
+.badge-gold {
+  background: #16a34a;
+  color: #ffffff;
+}
+
+.badge-low,
+.badge-pending,
+.badge-silver,
+.badge-bronze {
+  background: #d97706;
+  color: #ffffff;
+}
+
+.badge-critical,
+.badge-voided,
+.badge-damaged,
+.badge-danger {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.badge-in_transit,
+.badge-approved,
+.badge-blue {
+  background: #0ea5e9;
+  color: #ffffff;
+}
+
+.badge-platinum {
+  background: #8b5cf6;
+  color: #ffffff;
+}
+
+.badge-cancelled {
+  background: #64748b;
+  color: #ffffff;
+}
