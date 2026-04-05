@@ -80,8 +80,14 @@ def create_app():
         if not getattr(app, '_tables_created', False):
             db.create_all()
             app._tables_created = True
-
+    def create_app():
+        app = Flask(__name__)
+        app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+        
+    # other configs like SQLALCHEMY_DATABASE_URI
     return app
+
+    
 
 
 if __name__ == '__main__':
