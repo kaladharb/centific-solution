@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: voltedge-backend
+    env: python
+    plan: free
+    buildCommand: cd backend && pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: cd backend && gunicorn "app:create_app()" --bind 0.0.0.0:10000 --workers 2 --worker-class sync --timeout 30
+    envVars:
+      - key: DATABASE_URL
+        scope: build
+        value: postgresql://voltedge:password@localhost/voltedge_db
+      - key: JWT_SECRET_KEY
+        scope: build
+      - key: ANTHROPIC_API_KEY
+        scope: build
+      - key: FRONTEND_URL
+        scope: build
+        value: https://centific-solution.onrender.com
+      - key: PYTHON_VERSION
+        value: 3.12.0
+
+  - type: static
+    name: voltedge-frontend
+    staticPublishPath: frontend/dist
+    buildCommand: cd frontend && npm install && npm run build
+    routes:
+      - path: /
+        destination: index.html
+      - path: /api*
+        destination: http://voltedge-backend:10000

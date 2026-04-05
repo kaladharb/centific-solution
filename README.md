@@ -44,16 +44,29 @@ VoltEdge Commerce is an omnichannel inventory and sales platform with a Flask ba
 
 ### Production Deployment
 
-#### Option 1: Docker Compose (Recommended)
+#### Option 1: Render (One-Click Deployment)
+
+1. Push to GitHub
+2. Go to [Render.com](https://render.com)
+3. Create a new **Web Service**
+4. Connect your GitHub repository
+5. Set environment variables:
+   - `DATABASE_URL`: Use Render PostgreSQL or external database
+   - `JWT_SECRET_KEY`: Generate a secure key (min 32 chars)
+   - `ANTHROPIC_API_KEY`: Optional
+   - `FRONTEND_URL`: Your Render domain
+6. Deploy! Render will automatically use `Procfile` and `runtime.txt`
+
+#### Option 2: Docker Compose
 
 1. Set up your production environment variables in `backend/.env`
-2. Update `docker-compose.yml` for production settings (ports, environment)
+2. Update `docker-compose.prod.yml` for production settings
 3. Run:
    ```bash
-   docker-compose -f docker-compose.yml up -d --build
+   docker-compose -f docker-compose.prod.yml up -d --build
    ```
 
-#### Option 2: Manual Deployment
+#### Option 3: Manual Deployment
 
 **Backend:**
 
@@ -62,7 +75,7 @@ cd backend
 pip install -r requirements.txt
 export FLASK_APP=app.py
 export FLASK_ENV=production
-flask run --host=0.0.0.0 --port=5000
+gunicorn "app:create_app()" --bind 0.0.0.0:5000 --workers 4
 ```
 
 **Frontend:**
@@ -71,7 +84,7 @@ flask run --host=0.0.0.0 --port=5000
 cd frontend
 npm install
 npm run build
-# Serve the dist/ folder with nginx/apache
+# Serve the dist/ folder with nginx or static host
 ```
 
 ## Environment Variables
