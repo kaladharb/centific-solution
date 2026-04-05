@@ -3,8 +3,10 @@ services:
     name: voltedge-backend
     env: python
     plan: free
-    buildCommand: cd backend && pip install --upgrade pip && pip install -r requirements.txt
-    startCommand: cd backend && gunicorn "app:create_app()" --bind 0.0.0.0:10000 --workers 2 --worker-class sync --timeout 30
+    rootDir: backend
+    pythonVersion: 3.11.9
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: gunicorn "app:create_app()" --bind 0.0.0.0:10000 --workers 2 --worker-class sync --timeout 30
     envVars:
       - key: DATABASE_URL
         scope: build
@@ -16,13 +18,12 @@ services:
       - key: FRONTEND_URL
         scope: build
         value: https://centific-solution.onrender.com
-      - key: PYTHON_VERSION
-        value: 3.12.0
 
   - type: static
     name: voltedge-frontend
-    staticPublishPath: frontend/dist
-    buildCommand: cd frontend && npm install && npm run build
+    rootDir: frontend
+    staticPublishPath: dist
+    buildCommand: npm install && npm run build
     routes:
       - path: /
         destination: index.html
